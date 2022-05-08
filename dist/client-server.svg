@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="2560"
+   height="1100"
+   viewBox="0 0 2560 1100"
+   version="1.1"
+   id="svg7"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs4">
+    <rect
+       x="1030.1082"
+       y="254.29501"
+       width="499.15762"
+       height="83.49617"
+       id="rect5904" />
+    <rect
+       x="1030.1082"
+       y="254.29501"
+       width="499.15762"
+       height="83.49617"
+       id="rect5904-3" />
+    <rect
+       x="1030.1082"
+       y="254.29501"
+       width="499.15762"
+       height="83.49617"
+       id="rect5904-5" />
+    <rect
+       x="1030.1082"
+       y="254.29501"
+       width="499.15762"
+       height="83.49617"
+       id="rect5904-5-6" />
+    <rect
+       x="1030.1082"
+       y="254.29501"
+       width="499.15762"
+       height="83.49617"
+       id="rect5904-5-6-2" />
+    <style
+       id="style40032"><![CDATA[
+.rect {
+  fill:none;
+  stroke:#2ecc71;
+  stroke-dasharray:none;
+  stroke-miterlimit:4;
+  stroke-width:5;
+}
+.text {
+  -inkscape-font-specification:Heebo;
+  font-family:Heebo;
+  font-size:72px;
+  line-height:1.25;
+  text-align:center;
+  white-space:pre;
+}
+]]></style>
+  </defs>
+  <g
+     id="layer1">
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:7.36688;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1056.0831,388.91701 617.07713,711.083"
+       id="path34952" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:7.36688;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 1280,388.91699 0,322.16601"
+       id="path39411" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:7.36688;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1503.9169,388.91699 1942.9229,711.083"
+       id="path39638" />
+    <g
+       id="g39344"
+       transform="matrix(1.4733752,0,0,1.4733752,-605.92033,-185.4249)">
+      <rect
+         id="rect846"
+         width="481.1665"
+         height="223.05556"
+         x="1039.4167"
+         y="166.75818"
+         class="rect" />
+      <text
+         xml:space="preserve"
+         id="text5902"
+         style="shape-inside:url(#rect5904)"
+         transform="translate(-0.98251685,-11.648965)"
+         x="57.799973"
+         y="0"
+         class="text"><tspan
+           x="1173.4866"
+           y="315.78292"
+           id="tspan10117">Server</tspan></text>
+    </g>
+    <g
+       id="g35037"
+       transform="matrix(1.4733752,0,0,1.4733752,-602.96663,-209.61193)">
+      <rect
+         id="rect846-3"
+         width="481.1665"
+         height="223.05556"
+         x="435.50168"
+         y="624.88831"
+         class="rect" />
+      <text
+         xml:space="preserve"
+         id="text5902-5"
+         style="shape-inside:url(#rect5904-5)"
+         transform="translate(-604.4656,446.48116)"
+         x="57.799973"
+         y="0"
+         class="text"><tspan
+           x="1225.9746"
+           y="315.78292"
+           id="tspan10119">Bot</tspan></text>
+    </g>
+    <g
+       id="g35037-2"
+       transform="matrix(1.4733752,0,0,1.4733752,283.87329,-209.61193)">
+      <rect
+         id="rect846-3-9"
+         width="481.1665"
+         height="223.05556"
+         x="435.50168"
+         y="624.88831"
+         class="rect" />
+      <text
+         xml:space="preserve"
+         id="text5902-5-1"
+         style="shape-inside:url(#rect5904-5-6)"
+         transform="translate(-604.4656,446.48116)"
+         x="57.799973"
+         y="0"
+         class="text"><tspan
+           x="1225.9746"
+           y="315.78292"
+           id="tspan10121">Bot
+</tspan></text>
+    </g>
+    <g
+       id="g35037-2-7"
+       transform="matrix(1.4733752,0,0,1.4733752,1170.7131,-209.61193)">
+      <rect
+         id="rect846-3-9-0"
+         width="481.1665"
+         height="223.05556"
+         x="435.50168"
+         y="624.88831"
+         class="rect" />
+      <text
+         xml:space="preserve"
+         id="text5902-5-1-9"
+         style="shape-inside:url(#rect5904-5-6-2)"
+         transform="translate(-604.4656,446.48116)"
+         x="57.799973"
+         y="0"
+         class="text"><tspan
+           x="1225.9746"
+           y="315.78292"
+           id="tspan10123">Bot
+</tspan></text>
+    </g>
+  </g>
+</svg>

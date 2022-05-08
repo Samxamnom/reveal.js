@@ -1,0 +1,128 @@
+/**
+ * White theme for reveal.js. This is the opposite of the 'black' theme.
+ *
+ * By Hakim El Hattab, http://hakim.se
+ */
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@200;700&display=swap');
+
+:root {
+  font-size: 90px;
+}
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #fff;
+$mainColor: #201a26;
+$headingColor: #201a26;
+
+$mainFontSize: 1rem;
+$mainFont: 'Heebo', Helvetica, sans-serif;
+$headingFont: 'Heebo', Helvetica, sans-serif;
+$codeFont: 'SauceCodePro Nerd Font Mono', monospace;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingFontWeight: 700;
+$linkColor: #30d475;
+$linkColorHover: lighten( $linkColor, 15% );
+$selectionBackgroundColor: lighten( $linkColor, 25% );
+
+$heading1Size: 2.5rem;
+$heading2Size: 1.6rem;
+$heading3Size: 1.3rem;
+$heading4Size: 1.0rem;
+
+.img-scroll {
+  overflow-y: scroll;
+  & > img {
+    width: 100%;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.fade-down {
+  position: relative;
+}
+
+.fade-down::after {
+  content: ' ';
+  pointer-events: none;
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100.1%;
+  width: 100%;
+  background-image: linear-gradient(transparent 80%, white 100%);
+}
+
+.small {
+  font-size: 0.6rem;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.reveal .hljs.has-highlights tr:not(.highlight-line) {
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
+.reveal .code {
+  font-size: 1rem;
+  box-shadow: rgb(0 0 0 / 15%) 0 5px 15px;
+  width: 90%;
+  margin: 0 auto;
+  //& code {
+  //  line-height: 1rem;
+  //}
+
+  & code, & p {
+    font-size: 0.5em;
+    font-family: $codeFont;
+    padding: 0.3em 0.7em;
+    //line-height: 0.6rem;
+  }
+
+  & p {
+    color: $mainColor;
+    background: lighten( $linkColor, 40% );
+    text-align: left;
+    //font-size: 0.5rem;
+  }
+  & > .prefix {
+    overflow-x: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    & > p {
+      display: block;
+    }
+  }
+
+  margin-bottom: 1em;
+}
+
+pre, code {
+  box-shadow: none;
+}
+
+// Change text colors against dark slide backgrounds
+@include dark-bg-text-color(#fff);
+
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------

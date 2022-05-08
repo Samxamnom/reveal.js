@@ -598,10 +598,10 @@ $controlsArrowAngleActive: 36deg;
 	bottom: 8px;
 	z-index: 31;
 	font-family: Helvetica, sans-serif;
-	font-size: 12px;
+	font-size: 0.4rem;
 	line-height: 1;
-	color: #fff;
-	background-color: rgba( 0, 0, 0, 0.4 );
+	color: var(--r-main-color);
+	background: transparent;
 	padding: 5px;
 }
 
