@@ -1033,6 +1033,25 @@ $controlsArrowAngleActive: 36deg;
 	transition: none;
 }
 
+/*********************************************
+ * SLIDE-FADE TRANSITION
+ *********************************************/
+
+@each $stylename in slide-fade {
+	@include transition-horizontal-past(#{$stylename}) {
+		transform: translate(-20vw, 0);
+	}
+	@include transition-horizontal-future(#{$stylename}) {
+		transform: translate(20vw, 0);
+	}
+	@include transition-vertical-past(#{$stylename}) {
+		transform: translate(0, -20vh);
+	}
+	@include transition-vertical-future(#{$stylename}) {
+		transform: translate(0, 20vh);
+	}
+}
+
 
 /*********************************************
  * NO TRANSITION
