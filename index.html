@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 
-    <title>reveal.js</title>
+    <title>systemd - presentation</title>
 
     <link href="dist/reset.css" rel="stylesheet">
     <link href="dist/reveal.css" rel="stylesheet">
@@ -20,7 +20,8 @@
             <section>
                 <aside class="notes" data-markdown>
                     # Intro
-                    - danke für diese Einführung und danke, dass sie alle hier sind
+                    - Vielen Dank für die Einführung und auch nochmal vielen Dank, dass sie alle hier sind
+                    - Wie sie bereit gehört haben, möchte ich ihnen heute etwas über dienste Verwaltung
                     - heute geht es wie sie bereits gehört haben um Diensteverwaltung
                     - diesen thema ist sehr schön, denn wir benötigen keine tausenden euros oder besondere hardware um
                     es selbst zu nutzen
@@ -106,7 +107,7 @@
                 <ul>
                     <li class="fragment">Prozesse starten, stoppen, neustarten</li>
                     <li class="fragment">Prozesse überwachen</li>
-                    <li class="fragment">Resourcen kontrollieren</li>
+                    <li class="fragment">Ressourcen kontrollieren</li>
                 </ul>
                 <aside class="notes" data-markdown>
                     - das ist ja alles schön und gut, wir können also prozesse starten, adoptieren und zombies entfernen
@@ -123,7 +124,7 @@
         </section>
         <section>
             <section>
-                <h2>Server Beispiel</h2>
+                <h2>Server-Beispiel</h2>
                 <div class="fragment" data-animate data-src="dist/client-server.svg">
                     <!--{ "setup": [{ "modifier": "attr", "parameters": [{"width": "50%", "height": "auto"}]}]}-->
                 </div>
@@ -141,25 +142,25 @@
                 </aside>
             </section>
             <section>
-                <h2>systemd service Dateien</h2>
-                <div class="code">
+                <h2>systemd Service-Units</h2>
+                <div class="code fragment">
                     <!--                        After = network.target-->
                     <p class="file-name">/etc/systemd/system/example-server.service</p>
                     <pre>
                     <code class="ini" data-line-numbers="|1-2|1-10|" data-noescape data-trim>
                         [Unit]
-                        Description = Webserver for "Strategiespielpraktikum"
+                        Description = Webserver for example
 
                         [Service]
                         Type = exec
-                        ExecStart = /home/strategiespiel/Server/mvnw spring-boot:run
-                        WorkingDirectory = /home/strategiespiel/Server
-                        User = strategiespiel
-                        Group = strategiespiel
+                        ExecStart = /home/example/Server/mvnw spring-boot:run
+                        WorkingDirectory = /home/example/Server
+                        User = example-server
+                        Group = example-server
                         Restart = on-failure
 
                         [Install]
-                        RequiredBy = strategiespiel.target
+                        WantedBy = multi-user.target
                     </code>
                     </pre>
                 </div>
@@ -175,8 +176,8 @@
                     durch welches Target
                 </aside>
             </section>
-            <section>
-                <h2>systemd commands</h2>
+            <section data-auto-animate>
+                <h2>systemd Kommandos</h2>
 
                 <div class="code fragment">
                     <div class="prefix">
@@ -205,6 +206,27 @@
                         <p>$</p>
                         <pre>
                         <code class="bash" data-noescape data-trim>
+                            sudo systemctl enable example-server.service
+                        </code>
+                        </pre>
+                    </div>
+                    <div class="prefix">
+                        <p>></p>
+                        <pre>
+                        <code class="bash no-hljs" data-noescape data-trim>
+                            Created symlink /etc/systemd/system/multi-user.target.wants/example-server.service → /etc/systemd/system/example-server.service.
+                        </code>
+                        </pre>
+                    </div>
+                </div>
+            </section>
+            <section data-auto-animate>
+                <h2>systemd Kommandos</h2>
+                <div class="code fragment">
+                    <div class="prefix">
+                        <p>$</p>
+                        <pre>
+                        <code class="bash" data-noescape data-trim>
                             systemctl status example-server.service
                         </code>
                         </pre>
@@ -213,16 +235,16 @@
                         <p>></p>
                         <pre>
                         <code class="bash no-hljs" data-trim>
-                            ● example-server.service - Webserver for Strategiespielpraktikum
-                                 Loaded: loaded (/etc/systemd/system/example-server.service; disabled; vendor preset: disabled)
+                            ● example-server.service - Webserver for example
+                                 Loaded: loaded (/etc/systemd/system/example-server.service; enabled; vendor preset: disabled)
                                  Active: active (running) since Tue 2022-05-17 02:53:15 CEST; 17min ago
                                Main PID: 56125 (java)
                                   Tasks: 63 (limit: 18876)
                                  Memory: 438.5M
                                     CPU: 8.492s
                                  CGroup: /system.slice/example-server.service
-                                         ├─ 56125 /usr/lib/jvm/java-11-openjdk/bin/java -classpath /home/strategiespiel/Server/.mvn/wrapper/maven-wrapper.jar -Dmaven.home=/home/strategiespiel -Dmaven.multiModuleProjectDirectory=/home/strategiespiel/Server org.apache.maven.wrapper.MavenWrapperMain spring-boot:run
-                                         └─ 56167 /usr/lib/jvm/java-11-openjdk/bin/java -Xverify:none -XX:TieredStopAtLevel=1 -cp /home/strategiespiel/Server/target/classes:/home/strategiespiel/.m2/repository/org/springframework/boot/spring-boot/2.6.4/spring-boot-2.6.4.jar:/home/strategiespiel/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/2.6.4/spring-boot-autoconfigure-2.6.4.jar:/home/strategiespiel/.m2/repository/ch/qos/logback/logback-classic/1.2.10/logback-classic-1.2.10.jar:/home/strategiespiel/.m2/repository/ch/qos/logback/logback-core/1.2.10/logback-core-1.2.10.jar:/home/strategiespiel/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.17.1/log4j-to-slf4j-2.17.1.jar:/home/strategiespiel/.m2/repository/org/apache/logging/log4j/log4j-api/2.17.1/log4j-api-2.17.1.jar:/home/strategiespiel/.m2/repository/org/slf4j/jul-to-slf4j/1.7.36/jul-to-slf4j-1.7.36.jar:/home/strategiespiel/.m2/repository/jakarta/annotation/jakarta.annotation-api/1.3.5/jakarta.annotation-api-1.3.5.jar:/home/strategiespiel/.m2/repository/org/yaml/snakeyaml/1.29/snakeyaml-1.29.jar:/home/strategiespiel/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.13.1/jackson-databind-2.13.1.jar:/home/strategiespiel/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.13.1/jackson-annotations-2.13.1.jar:/home/strategiespiel/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.13.1/jackson-core-2.13.1.jar:/home/strategiespiel/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.13.1/jackson-datatype-jdk8-2.13.1.jar:/home/strategiespiel/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.13.1/jackson-datatype-jsr310-2.13.1.jar:/home/strategiespiel/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.13.1/jackson-module-parameter-names-2.13.1.jar:/home/strategiespiel/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.58/tomcat-embed-core-9.0.58.jar:/home/strategiespiel/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/9.0.58/tomcat-embed-el-9.0.58.jar:/home/strategiespiel/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/9.0.58/tomcat-embed-websocket-9.0.58.jar:/home/strategiespiel/.m2/repository/org/springframework/spring-web/5.3.16/spring-web-5.3.16.jar:/home/strategiespiel/.m2/repository/org/springframework/spring-beans/5.3.16/spring-beans-5.3.16.jar:/home/strategiespiel/.m2/repository/org/springframework/spring-webmvc/5.3.16/spring-webmvc-5.3.16.jar:/home/strategiespiel/.m2/repository/org/springframework/spring-aop/5.3.16/spring-aop-5.3.16.jar:/home/strategiespiel/.m2/repository/org/springframework/spring-context/5.3.16/spring-context-5.3.16.jar:/home/strategiespiel/.m2/repository/org/springframework/spring-expression/5.3.16/spring-expression-5.3.16.jar:/home/strategiespiel/.m2/repository/org/springframework/spring-messaging/5.3.16/spring-messaging-5.3.16.jar:/home/strategiespiel/.m2/repository/org/springframework/spring-websocket/5.3.16/spring-websocket-5.3.16.jar:/home/strategiespiel/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar:/home/strategiespiel/.m2/repository/org/springframework/spring-core/5.3.16/spring-core-5.3.16.jar:/home/strategiespiel/.m2/repository/org/springframework/spring-jcl/5.3.16/spring-jcl-5.3.16.jar strategiespiel.ServerApplication
+                                         ├─ 56125 /usr/lib/jvm/java-11-openjdk/bin/java -classpath /home/example/Server/.mvn/wrapper/maven-wrapper.jar -Dmaven.home=/home/example -Dmaven.multiModuleProjectDirectory=/home/example/Server org.apache.maven.wrapper.MavenWrapperMain spring-boot:run
+                                         └─ 56167 /usr/lib/jvm/java-11-openjdk/bin/java -Xverify:none -XX:TieredStopAtLevel=1 -cp /home/example/Server/target/classes:/home/example/.m2/repository/org/springframework/boot/spring-boot/2.6.4/spring-boot-2.6.4.jar:/home/example/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/2.6.4/spring-boot-autoconfigure-2.6.4.jar:/home/example/.m2/repository/ch/qos/logback/logback-classic/1.2.10/logback-classic-1.2.10.jar:/home/example/.m2/repository/ch/qos/logback/logback-core/1.2.10/logback-core-1.2.10.jar:/home/example/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.17.1/log4j-to-slf4j-2.17.1.jar:/home/example/.m2/repository/org/apache/logging/log4j/log4j-api/2.17.1/log4j-api-2.17.1.jar:/home/example/.m2/repository/org/slf4j/jul-to-slf4j/1.7.36/jul-to-slf4j-1.7.36.jar:/home/example/.m2/repository/jakarta/annotation/jakarta.annotation-api/1.3.5/jakarta.annotation-api-1.3.5.jar:/home/example/.m2/repository/org/yaml/snakeyaml/1.29/snakeyaml-1.29.jar:/home/example/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.13.1/jackson-databind-2.13.1.jar:/home/example/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.13.1/jackson-annotations-2.13.1.jar:/home/example/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.13.1/jackson-core-2.13.1.jar:/home/example/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.13.1/jackson-datatype-jdk8-2.13.1.jar:/home/example/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.13.1/jackson-datatype-jsr310-2.13.1.jar:/home/example/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.13.1/jackson-module-parameter-names-2.13.1.jar:/home/example/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.58/tomcat-embed-core-9.0.58.jar:/home/example/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/9.0.58/tomcat-embed-el-9.0.58.jar:/home/example/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/9.0.58/tomcat-embed-websocket-9.0.58.jar:/home/example/.m2/repository/org/springframework/spring-web/5.3.16/spring-web-5.3.16.jar:/home/example/.m2/repository/org/springframework/spring-beans/5.3.16/spring-beans-5.3.16.jar:/home/example/.m2/repository/org/springframework/spring-webmvc/5.3.16/spring-webmvc-5.3.16.jar:/home/example/.m2/repository/org/springframework/spring-aop/5.3.16/spring-aop-5.3.16.jar:/home/example/.m2/repository/org/springframework/spring-context/5.3.16/spring-context-5.3.16.jar:/home/example/.m2/repository/org/springframework/spring-expression/5.3.16/spring-expression-5.3.16.jar:/home/example/.m2/repository/org/springframework/spring-messaging/5.3.16/spring-messaging-5.3.16.jar:/home/example/.m2/repository/org/springframework/spring-websocket/5.3.16/spring-websocket-5.3.16.jar:/home/example/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar:/home/example/.m2/repository/org/springframework/spring-core/5.3.16/spring-core-5.3.16.jar:/home/example/.m2/repository/org/springframework/spring-jcl/5.3.16/spring-jcl-5.3.16.jar example.ServerApplication
                         </code>
                         </pre>
                     </div>
@@ -231,8 +253,8 @@
                     - um unseren service nun zu starten
                 </aside>
             </section>
-            <section>
-                <h2>Logging</h2>
+            <section data-auto-animate>
+                <h2>systemd Kommandos</h2>
                 <div class="code fragment" style="font-size: 0.7rem">
                     <div class="prefix">
                         <p>$</p>
@@ -253,15 +275,15 @@
                             May 17 13:04:45 arch mvnw[14049]:   '  |____| .__|_| |_|_| |_\__, | / / / /
                             May 17 13:04:45 arch mvnw[14049]:  =========|_|==============|___/=/_/_/_/
                             May 17 13:04:45 arch mvnw[14049]:  :: Spring Boot ::                (v2.6.4)
-                            May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.052  INFO 14049 --- [           main] strategiespiel.ServerApplication         : Starting ServerApplication using Java 11.0.15 on arch with PID 14049 (/home/strategiespiel/Server/target/classes started by strategiespiel in /home/strategiespiel/Server)
-                            May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.053  INFO 14049 --- [           main] strategiespiel.ServerApplication         : No active profile set, falling back to 1 default profile: "default"
+                            May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.052  INFO 14049 --- [           main] example.ServerApplication         : Starting ServerApplication using Java 11.0.15 on arch with PID 14049 (/home/example/Server/target/classes started by example in /home/example/Server)
+                            May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.053  INFO 14049 --- [           main] example.ServerApplication         : No active profile set, falling back to 1 default profile: "default"
                             May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.474  INFO 14049 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
                             May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.479  INFO 14049 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
                             May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.479  INFO 14049 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
                             May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.507  INFO 14049 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
                             May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.507  INFO 14049 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 431 ms
                             May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.684  INFO 14049 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-                            May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.690  INFO 14049 --- [           main] strategiespiel.ServerApplication         : Started ServerApplication in 0.846 seconds (JVM running for 1.047)
+                            May 17 13:04:45 arch mvnw[14049]: 2022-05-17 13:04:45.690  INFO 14049 --- [           main] example.ServerApplication         : Started ServerApplication in 0.846 seconds (JVM running for 1.047)
                             May 17 13:05:45 arch mvnw[14049]: 2022-05-17 13:05:45.577  INFO 14049 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
                         </code>
                         </pre>
@@ -271,20 +293,55 @@
         </section>
         <section>
             <section>
-                <h2>Bot Beispiel</h2>
+                <h2>Bot-Beispiel</h2>
                 <div class="fragment" data-animate data-src="dist/client-server.svg">
                     <!--{ "setup": [{ "modifier": "attr", "parameters": [{"width": "50%", "height": "auto"}]}]}-->
                 </div>
                 <aside class="notes" data-markdown>
                 </aside>
             </section>
-            <section>
-                <h2>scope Units</h2>
+            <section data-auto-animate>
+                <h2>Scope-Units</h2>
+                <div class="code fragment" style="font-size: 0.8rem">
+                    <!--                        After = network.target-->
+                    <p class="file-name">bot-dispatcher.cc</p>
+                    <pre data-id="code">
+                    <code class="cpp" data-line-numbers="" data-noescape data-trim>
+                        if (fork() == 0){
+                        /* ... */
+                        execl(binary.c_str(), binary.c_str(), nullptr);
+                        }
+                    </code>
+                    </pre>
+                </div>
+            </section>
+            <section data-auto-animate>
+                <h2>Scope-Units</h2>
                 <div class="code" style="font-size: 0.8rem">
                     <!--                        After = network.target-->
                     <p class="file-name">bot-dispatcher.cc</p>
-                    <pre>
-                    <code class="cpp" data-line-numbers="|1,19-20|3-6|3-14|3-17|" data-noescape data-trim>
+                    <pre data-id="code">
+                    <code class="cpp" data-line-numbers="|3-6" data-noescape data-trim>
+                        if (fork() == 0){
+                        /* ... */
+                        sd_bus_message *send_msg = nullptr;
+                        sd_bus_message_new_method_call(bus, &send_msg, "org.freedesktop.systemd1",
+                                    "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager",
+                                    "StartTransientUnit");
+                        /* ... */
+                        execl(binary.c_str(), binary.c_str(), nullptr);
+                        }
+                    </code>
+                    </pre>
+                </div>
+            </section>
+            <section data-auto-animate>
+                <h2>Scope-Units</h2>
+                <div class="code" style="font-size: 0.8rem">
+                    <!--                        After = network.target-->
+                    <p class="file-name">bot-dispatcher.cc</p>
+                    <pre data-id="code">
+                    <code class="cpp" data-line-numbers="|8|9-14|" data-noescape data-trim>
                         if (fork() == 0){
                         /* ... */
                         sd_bus_message *send_msg = nullptr;
@@ -294,7 +351,36 @@
 
                         sd_bus_message_append(send_msg, "ss", (name + ".scope").c_str(), "replace");
                         sd_bus_message_append(send_msg, "a(sv)", 5,
-                                              "Description", "s", "A bot of Strategiespiel",
+                                              "Description", "s", "A bot of example",
+                                              "PartOf", "as", 1, "example-server.service",
+                                              "MemoryMax", "t", 5 * 1024 * 1024,
+                                              "TasksMax", "t", 1,
+                                              "PIDs", "au", 1, (uint32_t) getpid());
+                        sd_bus_message_append(send_msg, "a(sa(sv))", 0);
+                        /* ... */
+                        execl(binary.c_str(), binary.c_str(), nullptr);
+                        }
+                    </code>
+                    </pre>
+                </div>
+            </section>
+            <section data-auto-animate>
+                <h2>Scope-Units</h2>
+                <div class="code" style="font-size: 0.8rem">
+                    <!--                        After = network.target-->
+                    <p class="file-name">bot-dispatcher.cc</p>
+                    <pre data-id="code">
+                    <code class="cpp" data-line-numbers="" data-noescape data-trim>
+                        if (fork() == 0){
+                        /* ... */
+                        sd_bus_message *send_msg = nullptr;
+                        sd_bus_message_new_method_call(bus, &send_msg, "org.freedesktop.systemd1",
+                                    "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager",
+                                    "StartTransientUnit");
+
+                        sd_bus_message_append(send_msg, "ss", (name + ".scope").c_str(), "replace");
+                        sd_bus_message_append(send_msg, "a(sv)", 5,
+                                              "Description", "s", "A bot of example",
                                               "PartOf", "as", 1, "example-server.service",
                                               "MemoryMax", "t", 5 * 1024 * 1024,
                                               "TasksMax", "t", 1,
@@ -309,13 +395,14 @@
                     </pre>
                 </div>
             </section>
-            <section>
+            <section data-auto-animate>
+                <h2>Scope-Units</h2>
                 <div class="code">
                     <div class="prefix">
                         <p>$</p>
                         <pre>
                         <code class="bash" data-noescape data-trim>
-                            systemctl status bot-1.scope
+                            systemctl status example-bot-1.scope
                         </code>
                         </pre>
                     </div>
@@ -323,15 +410,15 @@
                         <p>></p>
                         <pre>
                         <code class="bash no-hljs" data-trim>
-                            ● bot-1.scope - A bot of Strategiespiel
-                                 Loaded: loaded (/run/systemd/transient/bot-1.scope; transient)
+                            ● example-bot-1.scope - A bot of example
+                                 Loaded: loaded (/run/systemd/transient/example-bot-1.scope; transient)
                               Transient: yes
                                  Active: active (running) since Tue 2022-05-17 15:55:46 CEST; 8s ago
                                   Tasks: 1 (limit: 1)
                                  Memory: 4.0K (max: 5.0M available: 4.9M)
                                     CPU: 1ms
-                                 CGroup: /system.slice/bot-1.scope
-                                         └─ 40265 ./sd-bus
+                                 CGroup: /system.slice/example-bot-1.scope
+                                         └─ 40265 ./bot-1-binary
                         </code>
                         </pre>
                     </div>
@@ -341,7 +428,7 @@
         <section>
             <section>
                 <h1>Fazit</h1>
-                <p style="text-align: left; margin-left: 20%" class="fragment" data-fragment-index="0">systemd ist:</p>
+                <p class="fragment" data-fragment-index="0">systemd ist:</p>
                 <ul>
                     <li class="fragment" data-fragment-index="0">riesig</li>
                     <li class="fragment">praktisch</li>
@@ -370,7 +457,7 @@
         preloadIframes: true,
 
         transition: "slide-fade",
-
+        pdfSeparateFragments: false,
         // default size
         width: 2560,
         height: 1440,

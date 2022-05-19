@@ -16,6 +16,9 @@
 :root {
   font-size: 90px;
 }
+*::-webkit-scrollbar {
+  display: none;
+}
 
 // Override theme settings (see ../template/settings.scss)
 $backgroundColor: #fff;

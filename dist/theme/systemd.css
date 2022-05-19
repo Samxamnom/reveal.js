@@ -8,6 +8,10 @@
   font-size: 90px;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 .img-scroll {
   overflow-y: scroll;
 }
